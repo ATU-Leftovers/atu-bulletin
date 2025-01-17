@@ -1,0 +1,21 @@
+{
+	"folders": [
+		{
+			"path": "..",
+			"name": "📌 ATU Bulletin"
+		},
+		{
+			"path": "../apps/mobile",
+			"name": "📱 Mobile"
+		},
+		{
+			"path": "../apps/web",
+			"name": "🌐 Web"
+		},
+		{
+			"path": "../packages",
+			"name": "📦 Packages"
+		}
+	],
+	"settings": {}
+}
