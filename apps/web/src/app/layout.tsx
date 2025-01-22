@@ -55,6 +55,7 @@ async function Header() {
 
       <nav className="ml-auto flex gap-4 sm:gap-6">
         <Link className="text-sm font-medium hover:underline underline-offset-4" href="/events">Events</Link>
+        <Link className="text-sm font-medium hover:underline underline-offset-4" href="/organizations">Organizations</Link>
       </nav>
 
       <div className="ml-auto flex items-center space-x-4">

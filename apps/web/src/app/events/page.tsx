@@ -5,5 +5,9 @@ export default async function EventsPage() {
 
     const { data: events } = await supabase.from("events").select()
 
-    return <pre>{JSON.stringify(events, null, 2)}</pre>
+    return (
+        <div>
+            <pre>{JSON.stringify(events, null, 2)}</pre>
+        </div>
+    )
 }
