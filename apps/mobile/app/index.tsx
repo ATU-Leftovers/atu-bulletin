@@ -15,7 +15,7 @@ export default function UserOnboardingScreen() {
   useEffect(() => {
     const { data: listener } = supabase.auth.onAuthStateChange((event, session) => {
       if (session) {
-        router.replace('/(tabs)/home')
+        router.replace('/(tabs)')
       } else {
         setShouldOnboard(true)
       }

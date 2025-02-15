@@ -1,6 +1,34 @@
-import React from "react";
 import { Stack } from "expo-router";
 
 export default function RootLayout() {
-  return <Stack screenOptions={{ headerShown: false }} />;
+
+  return (
+ 
+        <Stack screenOptions={{headerStyle:{
+          backgroundColor: '#4b7f52'
+        },
+        headerTintColor: '#fff',
+        headerTitleAlign: 'center',
+        headerTitleStyle: {
+          fontWeight: 'bold'
+        }
+        }}>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+          <Stack.Screen name="index" options={{ headerShown: false }} />
+          <Stack.Screen name="(foundAround)/search" options={{ title:"Search" }} />
+          <Stack.Screen name="(foundAround)/map" options={{ title:"Map"}} />
+          <Stack.Screen name="(foundAround)/eventDetail" options={{ title:"Event Detail" }} />
+          <Stack.Screen name="(foundAround)/newsDetail" options={{ title:"News Detail"}}/>
+          <Stack.Screen name="(foundAround)/addEvent" options={{ title:"Add Event" }} />
+          <Stack.Screen name="(foundAround)/addNews" options={{ title:"Add News"}}/>
+          <Stack.Screen name="(profile)/yourEvents" options={{ title:"Your Events"}} />
+          <Stack.Screen name="(profile)/pins" options={{ title:"Your Pins"}} />
+          <Stack.Screen name="(profile)/settings" options={{ title:"Your Settings"}} />
+          <Stack.Screen name="(profile)/defaultProfile" options={{ title:"User name"}} />
+          <Stack.Screen name="(profile)/(nondefault)/yourNews" options={{ title:"Your News"}} />
+          <Stack.Screen name="(profile)/(nondefault)/[id]" options={{ title:"Profile name"}} />
+        </Stack>
+   
+  )
 }
