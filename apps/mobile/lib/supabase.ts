@@ -32,6 +32,6 @@ supabase.auth.onAuthStateChange((event, session) => {
     if (event === 'SIGNED_OUT') {
         router.replace('/(auth)/login')
     } else if (session) {
-        router.replace('/(tabs)/home')
+        router.replace('/(tabs)/index')
     }
 })
