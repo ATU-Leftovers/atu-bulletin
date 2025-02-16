@@ -1,13 +1,15 @@
 
-import { Text, View, Pressable, ScrollView, Modal, Image } from "react-native";
+import { Text, View, Pressable, ScrollView, Image, StyleSheet } from "react-native";
 import { Link } from 'expo-router';
-import  {useState } from "react";
+import  {useState  } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
 import WeekGlanceModal from "@/components/weekGlanceModal"
 import YourPinsModal from "@/components/yourPinsModal";
 import GenericListModal from "@/components/genericListModal";
+
+import { ThemeColors } from '@/constants/Colors';
 
 export default function Home() {
 
@@ -21,15 +23,15 @@ export default function Home() {
 
   return (
 
-    <SafeAreaView className="flex-1 ">
+    <SafeAreaView style={styles.container}>
       {/* Navigation Header */}
-      <View className="z-10 flex-row justify-between py-1 bg-atu-green-headerl/75">
-        <Link href="/search" asChild className="p-1 border-2 border-white rounded-full left-3 bg-atu-green-headerl/50">
+      <View style={styles.navigationHeaderContainer}>
+        <Link href="/search" asChild style={styles.navigationHeaderLink}>
           <Pressable>
             <MaterialCommunityIcons name="magnify" size={24} color="white" />
           </Pressable>
         </Link>
-        <Link href="/map" asChild className="p-1 border-2 border-white rounded-full right-3 bg-atu-green-headerl/50">
+        <Link href="/map" asChild style={styles.navigationHeaderLink}>
           <Pressable>
             <MaterialCommunityIcons name="map-search-outline" size={24} color="white" />
           </Pressable>
@@ -37,27 +39,27 @@ export default function Home() {
       </View>
 
       {/* Objects that scroll */}
-      <ScrollView showsVerticalScrollIndicator={false} className="flex-1">
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
 
         {/* Your Pins Container */}
 
-        <View className="items-start">
-          <View style={{ boxShadow: '7 7px 5px rgba(0, 0, 0, 0.2)' }} className="w-9/12 m-5 origin-center rotate-3 shadow-black bg-atu-gold-v ">
-            <Text className="pt-3 pl-5 text-2xl font-bold">Your Pins</Text>
+        <View>
+          <View style={{...styles.leftScrollObjectContainer, backgroundColor: ThemeColors['atu-gold-v']}}>
+            <Text style={styles.scrollObjectHeaderText}>Your Pins</Text>
             <Link href="/eventDetail" asChild>
-              <Pressable style={{ alignItems: 'center' }} className="flex flex-row h-24 p-2 m-2 align-middle rounded-md bg-atu-gold-vl">
-                <View><Image className="bg-gray-600 h-3/4 aspect-square" source={require('../../assets/images/Pickle.png')} /></View>
-                <View className="justify-start w-4/5 p-2">
-                  <Text numberOfLines={1} ellipsizeMode='tail' className="text-lg font-bold">Tidsaaaaaaaaa aaadasdadadaddatlefsghuf=gsfd</Text>
+              <Pressable style={{...styles.internalScrollObjectContainer, backgroundColor: ThemeColors['atu-gold-vl']}}>
+                <View><Image style={styles.scrollObjectImage} source={require('../../assets/images/Pickle.png')} /></View>
+                <View style={styles.scrollObjectTextContainer}>
+                  <Text numberOfLines={1} ellipsizeMode='tail' style={styles.scrollObjectTextContainerHeader}>Tidsaaaaaaaaa aaadasdadadaddatlefsghuf=gsfd</Text>
                   <Text numberOfLines={4} ellipsizeMode='tail'>Summauhifdfosgfasiofguiasfgduasgfiary</Text>
                 </View>
               </Pressable>
             </Link>
 
-            <View className='items-end px-2 pb-2'>
-              <View className="px-5 rounded-full bg-atu-gold-vd">
+            <View style={styles.scrollObjectButtonContainer}>
+              <View style={styles.scrollObjectButton}>
                 <Pressable onPress={() => {setYourPinsVisible(true)}}>
-                  <Text className="text-base font-bold text-white">View Pins</Text>
+                  <Text style={styles.scrollObjectButtonText}>View Pins</Text>
                 </Pressable>
               </View>
             </View>
@@ -65,63 +67,63 @@ export default function Home() {
         </View>
 
         {/* Week at a glance Container */}
-        <View className="items-end">
-          <View style={{ boxShadow: '-7 7px 5px rgba(0, 0, 0, 0.2)' }} className="float-right w-9/12 m-5 -rotate-3 shadow-black bg-atu-green-vl">
-            <Text className="pt-3 pl-5 text-2xl font-bold">Week at a Glance</Text>
+        <View style={{alignItems: 'flex-end'}}>
+          <View style={{...styles.rightScrollObjectContainer, backgroundColor: ThemeColors['atu-green-vl']}}>
+            <Text style={styles.scrollObjectHeaderText}>Week at a Glance</Text>
             <Link href="/newsDetail" asChild>
-              <Pressable style={{ alignItems: 'center' }} className="flex flex-row h-24 p-2 m-2 rounded-md bg-atu-green-vl2">
-                <View><Image className="bg-gray-600 h-3/4 aspect-square" source={require('../../assets/images/Pickle.png')} /></View>
-                <View className="justify-start w-4/5 p-2">
-                  <Text numberOfLines={1} ellipsizeMode='tail' className="text-lg font-bold">Tidsaaaaaaaaa aaadasdadadaddatlefsghuf=gsfd</Text>
+              <Pressable style={{...styles.internalScrollObjectContainer, backgroundColor: ThemeColors['atu-green-vl2']}}>
+                <View><Image style={styles.scrollObjectImage} source={require('../../assets/images/Pickle.png')} /></View>
+                <View style={styles.scrollObjectTextContainer}>
+                  <Text numberOfLines={1} ellipsizeMode='tail' style={styles.scrollObjectTextContainerHeader}>Tidsaaaaaaaaa aaadasdadadaddatlefsghuf=gsfd</Text>
                   <Text numberOfLines={4} ellipsizeMode='tail'>Summauhifdfosgfasiofguiasfgduasgfiary</Text>
                 </View>
               </Pressable>
             </Link>
-            <Pressable onPress={() => {setWeekGlanceVisible(true)}} className='items-end px-2 pb-2'>
-              <View className="px-5 rounded-full bg-atu-gold-vd">
-                <Text className="text-base font-bold text-white">View Week</Text>
+            <Pressable onPress={() => {setWeekGlanceVisible(true)}} style={styles.scrollObjectButtonContainer}>
+              <View style={styles.scrollObjectButton}>
+                <Text style={styles.scrollObjectButtonText}>View Week</Text>
               </View>
             </Pressable>
           </View>
         </View>
 
         {/* Popular Container */}
-        <View className="items-start">
-          <View style={{ boxShadow: '7 7px 5px rgba(0, 0, 0, 0.2)' }} className="object-right w-9/12 m-5 rotate-3 shadow-black bg-atu-green-vl ">
-            <Text className="pt-3 pl-5 text-2xl font-bold">Popular</Text>
+        <View>
+          <View style={{...styles.leftScrollObjectContainer, backgroundColor: ThemeColors['atu-green-vl']}}>
+            <Text style={styles.scrollObjectHeaderText}>Popular</Text>
             <Link href="/eventDetail" asChild>
-              <Pressable style={{ alignItems: 'center' }} className="flex flex-row h-24 p-2 m-2 rounded-md bg-atu-green-vl2">
-              <View><Image className="bg-gray-600 h-3/4 aspect-square" source={require('../../assets/images/Pickle.png')} /></View>
-                <View className="justify-start w-4/5 p-2">
-                  <Text numberOfLines={1} ellipsizeMode='tail' className="text-lg font-bold">Tidsaaaaaaaaa aaadasdadadaddatlefsghuf=gsfd</Text>
+              <Pressable style={{...styles.internalScrollObjectContainer, backgroundColor: ThemeColors['atu-green-vl2']}}>
+              <View><Image style={styles.scrollObjectImage} source={require('../../assets/images/Pickle.png')} /></View>
+                <View style={styles.scrollObjectTextContainer}>
+                  <Text numberOfLines={1} ellipsizeMode='tail' style={styles.scrollObjectTextContainerHeader}>Tidsaaaaaaaaa aaadasdadadaddatlefsghuf=gsfd</Text>
                   <Text numberOfLines={4} ellipsizeMode='tail'>Summauhifdfosgfasiofguiasfgduasgfiary</Text>
                 </View>
               </Pressable>
             </Link>
-            <Pressable onPress={() => {setGenericListTitle('Popular'), setGenericListVisible(true)}} className='items-end px-2 pb-2'>
-              <View className="px-5 rounded-full bg-atu-gold-vd">
-                <Text className="text-base font-bold text-white">View Popular</Text>
+            <Pressable onPress={() => {setGenericListTitle('Popular'), setGenericListVisible(true)}} style={styles.scrollObjectButtonContainer}>
+              <View style={styles.scrollObjectButton}>
+                <Text style={styles.scrollObjectButtonText}>View Popular</Text>
               </View>
             </Pressable>
           </View>
         </View>
 
         {/* Whats New Container */}
-        <View className="items-end">
-          <View style={{ boxShadow: '-7 7px 5px rgba(0, 0, 0, 0.2)' }} className="object-right w-9/12 m-5 -rotate-3 shadow-black bg-atu-green-vl ">
-            <Text className="pt-3 pl-5 text-2xl font-bold">Whats New</Text>
+        <View style={{alignItems: 'flex-end'}}>
+          <View style={{...styles.rightScrollObjectContainer, backgroundColor: ThemeColors['atu-green-vl']}}>
+            <Text style={styles.scrollObjectHeaderText}>Whats New</Text>
             <Link href="/eventDetail" asChild>
-            <Pressable style={{ alignItems: 'center' }} className="flex flex-row h-24 p-2 m-2 rounded-md bg-atu-green-vl2">
-            <View><Image className="bg-gray-600 h-3/4 aspect-square" source={require('../../assets/images/Pickle.png')} /></View>
-                <View className="justify-start w-4/5 p-2">
-                  <Text numberOfLines={1} ellipsizeMode='tail' className="text-lg font-bold">Tidsaaaaaaaaa aaadasdadadaddatlefsghuf=gsfd</Text>
+            <Pressable style={{...styles.internalScrollObjectContainer, backgroundColor: ThemeColors['atu-green-vl2']}}>
+            <View><Image style={styles.scrollObjectImage} source={require('../../assets/images/Pickle.png')} /></View>
+                <View style={styles.scrollObjectTextContainer}>
+                  <Text numberOfLines={1} ellipsizeMode='tail' style={styles.scrollObjectTextContainerHeader}>Tidsaaaaaaaaa aaadasdadadaddatlefsghuf=gsfd</Text>
                   <Text numberOfLines={4} ellipsizeMode='tail'>Summauhifdfosgfasiofguiasfgduasgfiary</Text>
                 </View>
             </Pressable>
             </Link>
-            <Pressable onPress={() => {setGenericListTitle('Whats New'), setGenericListVisible(true)}} className='items-end px-2 pb-2'>
-              <View className="px-5 rounded-full bg-atu-gold-vd">
-                <Text className="text-base font-bold text-white">View New</Text>
+            <Pressable onPress={() => {setGenericListTitle('Whats New'), setGenericListVisible(true)}} style={styles.scrollObjectButtonContainer}>
+              <View style={styles.scrollObjectButton}>
+                <Text style={styles.scrollObjectButtonText}>View New</Text>
               </View>
             </Pressable>
           </View>
@@ -134,3 +136,101 @@ export default function Home() {
     </SafeAreaView>
   );
 }
+
+
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+    },
+
+    navigationHeaderContainer:
+    {
+      zIndex: 10,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      paddingHorizontal: 4,
+      paddingVertical: 6,
+      backgroundColor: ThemeColors['atu-green-headerl/.75'],
+       
+    },
+    navigationHeaderLink:
+    {
+      padding: 2,
+      borderWidth: 2,
+      borderColor: 'white',
+      borderRadius: 999,
+      backgroundColor: ThemeColors['atu-green-headerl/.50']
+    },
+
+    leftScrollObjectContainer:
+    {
+      boxShadow: '7 7px 5px rgba(0, 0, 0, 0.2)',
+      width: '75%',
+      margin: 20,
+      transformOrigin: 'center',
+      transform: [{rotate: '3deg'}],
+      shadowColor: 'black'
+    },
+    rightScrollObjectContainer:
+    {
+      boxShadow: '-7 7px 5px rgba(0, 0, 0, 0.2)',
+      width: '75%',
+      margin: 20,
+      transformOrigin: 'center',
+      transform: [{rotate: '-3deg'}],
+      shadowColor: 'black'
+    },
+    scrollObjectHeaderText:
+    {
+      paddingTop: 12,
+      paddingLeft: 20,
+      fontSize: 24,
+      fontWeight: 700,
+    },
+
+    internalScrollObjectContainer:
+    {
+      alignItems: 'center',
+      flexDirection: 'row',
+      height: 96, 
+      padding: 4,
+      margin: 8,
+      verticalAlign: 'middle',
+      borderRadius: 8,
+    },
+    scrollObjectImage:
+    {
+      height: '75%',
+      aspectRatio: 1/1,
+    },
+    scrollObjectTextContainer:
+    {
+      justifyContent: 'flex-start',
+      width: '80%',
+      padding: 8,
+    },
+    scrollObjectTextContainerHeader:
+    {
+      fontSize: 18,
+      fontWeight: 700
+    },
+
+    scrollObjectButtonContainer:
+    {
+      alignItems: 'flex-end',
+      paddingHorizontal: 8,
+      paddingBottom: 8
+    },
+    scrollObjectButton:
+    {
+      paddingHorizontal: 20,
+      borderRadius: 999,
+      backgroundColor: ThemeColors['atu-gold-vd']
+    },
+    scrollObjectButtonText:
+    {
+      fontSize:16,
+      fontWeight: 700,
+      color: 'white' 
+    }
+})
