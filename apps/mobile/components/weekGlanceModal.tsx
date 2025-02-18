@@ -12,13 +12,6 @@ type propValue =
 
 export default function WeekGlanceModal(props: propValue) {
     const [currentNewsData, setCurrentNewsData] = useState<any>([])
-    const [mondayDrop, setMondayDrop] = useState(false)
-    const [tuesdayDrop, setTuesdayDrop] = useState(false)
-    const [wednesdayDrop, setWednesdayDrop] = useState(false)
-    const [thursdayDrop, setThursdayDrop] = useState(false)
-    const [fridayDrop, setFridayDrop] = useState(false)
-    const [saturdayDrop, setSaturdayDrop] = useState(false)
-    const [sundayDrop, setSundayDrop] = useState(false)
 
     useEffect(() => {
         const tempData = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }, { id: 6 }]
@@ -30,6 +23,7 @@ export default function WeekGlanceModal(props: propValue) {
     return (
         <Modal transparent visible={props.isVisible}>
             <Pressable onPress={() => { props.close() }} style={styles.container}>
+                <View style={styles.modalTransparentSpace}></View>
                 <TouchableWithoutFeedback>
                     {/* Modal Header */}
                     <View style={styles.modalContainer}>
@@ -39,13 +33,13 @@ export default function WeekGlanceModal(props: propValue) {
 
                         <ScrollView showsVerticalScrollIndicator={false}>
 
-                            <WeekDayListComponent day='Monday' data={currentNewsData}/>
-                            <WeekDayListComponent day='Tuesday' data={currentNewsData}/>
-                            <WeekDayListComponent day='Wednesday' data={currentNewsData}/>
-                            <WeekDayListComponent day='Thursday' data={currentNewsData}/>
-                            <WeekDayListComponent day='Friday' data={currentNewsData}/>
-                            <WeekDayListComponent day='Saturday' data={currentNewsData}/>
-                            <WeekDayListComponent day='Sunday' data={currentNewsData}/>
+                            <WeekDayListComponent day='Monday' data={currentNewsData} />
+                            <WeekDayListComponent day='Tuesday' data={currentNewsData} />
+                            <WeekDayListComponent day='Wednesday' data={currentNewsData} />
+                            <WeekDayListComponent day='Thursday' data={currentNewsData} />
+                            <WeekDayListComponent day='Friday' data={currentNewsData} />
+                            <WeekDayListComponent day='Saturday' data={currentNewsData} />
+                            <WeekDayListComponent day='Sunday' data={currentNewsData} />
 
                         </ScrollView>
                     </View>
@@ -58,8 +52,15 @@ export default function WeekGlanceModal(props: propValue) {
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      justifyContent: 'flex-end'
+        flex: 1,
+        justifyContent: 'flex-end',
+
+    },
+    modalTransparentSpace:
+    {
+        backgroundColor: ThemeColors['gray'],
+        opacity: .60,
+        height: '100%'
     },
     modalContainer:
     {
