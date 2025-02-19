@@ -15,7 +15,7 @@
 //             const events = await getAllEvents(supabase)
 //             setEvents(events)
 //         })();
-        
+
 //         (async () => {
 //             const response = await fetch('https://api.presence.io/atu/v1/events')
 
@@ -38,11 +38,13 @@
 
 
 
-import { View, Text, Pressable, ScrollView, FlatList, Image, Button } from 'react-native';
+import { View, Text, Pressable, ScrollView, FlatList, Image, Button, StyleSheet } from 'react-native';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Alert } from 'react-native';
+import { ThemeColors } from '@/constants/Colors';
+import ListingComponent from '@/components/listingComponent';
 
 export default function Events() {
 
@@ -59,15 +61,15 @@ export default function Events() {
 
     const showAlert = () => {
         Alert.alert(
-          'Disclaimer',
-          'Please keep in mind that the host of an event may not have permission to host at the posted location.',
-          [
-            { text: 'OK', onPress: () => console.log('OK Pressed') },
-            { text: 'Close', onPress: () => console.log('Close Pressed') },
-          ],
-          { cancelable: false }
+            'Disclaimer',
+            'Please keep in mind that the host of an event may not have permission to host at the posted location.',
+            [
+                { text: 'OK', onPress: () => console.log('OK Pressed') },
+                { text: 'Close', onPress: () => console.log('Close Pressed') },
+            ],
+            { cancelable: false }
         );
-      };
+    };
 
 
     /* 
@@ -81,186 +83,87 @@ export default function Events() {
      make it possible to click the header (ADD '>') so user can click on it to redirect like view more button
     */
     return (
-        <SafeAreaView className='flex-1'>
+        <SafeAreaView style={styles.container}>
             <ScrollView showsVerticalScrollIndicator={false}>
 
-                 <View className="mb-2 text-black bg-red-500">
+
+                {/* <View className="mb-2 text-black bg-red-500">
                     <Button title={'Disclaimer: Tap for info.'} onPress={showAlert} color= "white" />
-                </View>
+                </View> */}
 
                 {/* Upcoming Timer */}
                 {upcomingEvent && (
-                    <View className='items-end mx-1 my-2'>
-                        <View className='px-2 py-1 rounded shadow-xl shadow-black bg-atu-gold-v'>
-                            <Text className='font-bold text-center text-white'>Upcoming: hh:mm:ss</Text>
+                    <View style={styles.upcomingContainer}>
+                        <View style={styles.upcomingIcon}>
+                            <Text style={styles.upcomingIconText}>Upcoming: hh:mm:ss</Text>
                         </View>
                     </View>
                 )}
-                {/* Registered Event Container */}
-                <View className='flex py-2 bg-atu-gold-vl' >
-                    <Text className='px-3 font-bold text-white text-md'>Registered Events</Text>
+                <ListingComponent data={[]} title='Registed Events' backgroundColor='atu-gold-vl'/>
 
-                    {/* No Registered Events */}
-                    {userRegisteredEvents.length == 0 && (
-                        <View className='items-center self-center justify-center object-center w-2/3 p-4 m-5 bg-white rounded-md'>
-                            <Text >No Registered Events</Text>
-                            <Pressable>
-                                <View className="px-3 mt-2 rounded-full bg-atu-gold-vd">
-                                    <Text className="text-white ">Find Events</Text>
-                                </View>
-                            </Pressable>
-                        </View>)}
+                <ListingComponent data={[]} title='Current Events' backgroundColor='atu-green-vl'/>
 
-                    {userRegisteredEvents.length != 0 && (
-                        <FlatList
-                            className='py-1'
-                            data={userRegisteredEvents}
-                            horizontal={true}
-                            showsHorizontalScrollIndicator={false}
-                            renderItem={({ item, index }) => {
-                                //Last Item Redirect
-                                if (index == currentEventData.length - 1) {
-                                    return (
-                                        <View className='items-center justify-center mx-4 bg-gray-600 h-44 w-28'>
-                                            <MaterialCommunityIcons name="plus-thick" size={24} color="white" />
-                                            <Text className='font-bold text-white'>View More</Text>
-                                        </View>
-                                    )
-                                }
-                                //Render Regular Items
-                                else {
-                                    return (
-                                        <View className='ml-4 bg-gray-600 h-44 w-28'>
-                                            <Image className="bg-gray-400 h-28 aspect-square" source={require('../../assets/images/Pickle.png')} />
-                                            <View className='h-full gap-1 p-1'>
-                                                <Text numberOfLines={1} ellipsizeMode='tail' className='text-xs text-gray-200'>Autddddddddddddddddddddddddddddddddddddddddadsahor</Text>
-                                                <Text numberOfLines={1} ellipsizeMode='tail' className='text-xs font-bold text-white'>Titdwadwwwwwwwwwwwwwwwwwwwwwwwwwwwwwle</Text>
-                                                <Text numberOfLines={1} ellipsizeMode='tail' className='text-xs text-gray-200'>Publish:Date, Timewwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww</Text>
-                                            </View>
-                                        </View>
-                                    )
-                                }
-                            }}
-                        />
-                    )}
-                </View>
-
-                {/* Current Event Container */}
-                <View className='py-2 mt-4 bg-atu-green-vl'>
-                    <Text className='pl-4 font-bold text-white'>Current Events</Text>
-                    {/* Current Event List Container */}
-                    <FlatList
-                        className='py-1'
-                        data={currentEventData}
-                        horizontal={true}
-                        showsHorizontalScrollIndicator={false}
-                        renderItem={({ item, index }) => {
-                            //Last Item Redirect
-                            if (index == currentEventData.length - 1) {
-                                return (
-                                    <View className='items-center justify-center mx-4 bg-gray-600 h-44 w-28'>
-                                        <MaterialCommunityIcons name="plus-thick" size={24} color="white" />
-                                        <Text className='font-bold text-white'>View More</Text>
-                                    </View>
-                                )
-                            }
-                            //Render Regular Items
-                            else {
-                                return (
-                                    <View className='ml-4 bg-gray-600 h-44 w-28'>
-                                        <Image className="bg-gray-400 h-28 aspect-square" source={require('../../assets/images/Pickle.png')} />
-                                        <View className='h-full gap-1 p-1'>
-                                            <Text numberOfLines={1} ellipsizeMode='tail' className='text-xs text-gray-200'>Autddddddddddddddddddddddddddddddddddddddddadsahor</Text>
-                                            <Text numberOfLines={1} ellipsizeMode='tail' className='text-xs font-bold text-white'>Titdwadwwwwwwwwwwwwwwwwwwwwwwwwwwwwwle</Text>
-                                            <Text numberOfLines={1} ellipsizeMode='tail' className='text-xs text-gray-200'>Publish:Date, Timewwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww</Text>
-                                        </View>
-                                    </View>
-                                )
-                            }
-                        }}
-                    />
-                </View>
-
-                {/* Future Events */}
-                <View className='py-2 mt-4 bg-atu-green-vl'>
-                    <Text className='pl-4 font-bold text-white'>Future Events</Text>
-                    {/* Current Event List Container */}
-                    <FlatList
-                        className='py-1'
-                        data={currentEventData}
-                        horizontal={true}
-                        showsHorizontalScrollIndicator={false}
-                        renderItem={({ item, index }) => {
-                            //Last Item Redirect
-                            if (index == currentEventData.length - 1) {
-                                return (
-                                    <View className='items-center justify-center mx-4 bg-gray-600 h-44 w-28'>
-                                        <MaterialCommunityIcons name="plus-thick" size={24} color="white" />
-                                        <Text className='font-bold text-white'>View More</Text>
-                                    </View>
-                                )
-                            }
-                            //Render Regular Items
-                            else {
-                                return (
-                                    <View className='ml-4 bg-gray-600 h-44 w-28'>
-                                        <Image className="bg-gray-400 h-28 aspect-square" source={require('../../assets/images/Pickle.png')} />
-                                        <View className='h-full gap-1 p-1'>
-                                            <Text numberOfLines={1} ellipsizeMode='tail' className='text-xs text-gray-200'>Autddddddddddddddddddddddddddddddddddddddddadsahor</Text>
-                                            <Text numberOfLines={1} ellipsizeMode='tail' className='text-xs font-bold text-white'>Titdwadwwwwwwwwwwwwwwwwwwwwwwwwwwwwwle</Text>
-                                            <Text numberOfLines={1} ellipsizeMode='tail' className='text-xs text-gray-200'>Publish:Date, Timewwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww</Text>
-                                        </View>
-                                    </View>
-                                )
-                            }
-                        }}
-                    />
-                </View>
-                {/* Past Events */}
-                <View className='py-2 mt-4 bg-atu-green-vl'>
-                    <Text className='pl-4 font-bold text-white'>Past Events</Text>
-                    {/* Current Event List Container */}
-                    <FlatList
-                        className='py-1'
-                        data={currentEventData}
-                        horizontal={true}
-                        showsHorizontalScrollIndicator={false}
-                        renderItem={({ item, index }) => {
-                            //Last Item Redirect
-                            if (index == currentEventData.length - 1) {
-                                return (
-                                    <View className='items-center justify-center mx-4 bg-gray-600 h-44 w-28'>
-                                        <MaterialCommunityIcons name="plus-thick" size={24} color="white" />
-                                        <Text className='font-bold text-white'>View More</Text>
-                                    </View>
-                                )
-                            }
-                            //Render Regular Items
-                            else {
-                                return (
-                                    <View className='ml-4 bg-gray-600 h-44 w-28'>
-                                        <Image className="bg-gray-400 h-28 aspect-square" source={require('../../assets/images/Pickle.png')} />
-                                        <View className='h-full gap-1 p-1'>
-                                            <Text numberOfLines={1} ellipsizeMode='tail' className='text-xs text-gray-200'>Autddddddddddddddddddddddddddddddddddddddddadsahor</Text>
-                                            <Text numberOfLines={1} ellipsizeMode='tail' className='text-xs font-bold text-white'>Titdwadwwwwwwwwwwwwwwwwwwwwwwwwwwwwwle</Text>
-                                            <Text numberOfLines={1} ellipsizeMode='tail' className='text-xs text-gray-200'>Publish:Date, Timewwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww</Text>
-                                        </View>
-                                    </View>
-                                )
-                            }
-                        }}
-                    />
-                </View>
+                <ListingComponent data={currentEventData} title='Future Events' backgroundColor='atu-green-vl'/>
+                
+                <ListingComponent data={currentEventData} title='Past Events' backgroundColor='atu-green-vl'/>
 
                 {/* All News Button */}
-                <Pressable className='flex items-center'>
-                    <View className="px-5 py-1 mt-10 rounded-full bg-atu-gold-vd">
-                        <Text className="text-lg font-bold text-white">All Events</Text>
+                <Pressable style={styles.allButtonContainer}>
+                    <View style={styles.allButtonStyle}>
+                        <Text style={styles.allButtonText}>All Events</Text>
                     </View>
                 </Pressable>
 
             </ScrollView>
-            
+
         </SafeAreaView>
     )
 }
+
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
+
+    upcomingContainer:
+    {
+        alignItems: 'flex-end',
+        marginHorizontal: 4,
+        marginVertical: 8
+    },
+    upcomingIcon:
+    {
+        paddingVertical: 8,
+        paddingHorizontal: 4,
+        borderRadius: 8,
+        backgroundColor: ThemeColors['atu-gold-v'],
+        boxShadow: '0 7px 5px rgba(0, 0, 0, 0.2)',
+    },
+    upcomingIconText:
+    {
+        fontWeight: 700,
+        textAlign: 'center',
+        color: 'white'
+    },
+
+    allButtonContainer:
+    {
+        flex:1,
+        alignItems:'center'
+    },
+    allButtonStyle:
+    {
+        paddingHorizontal: 20,
+        paddingVertical: 4,
+        marginVertical: 40,
+        borderRadius: 999,
+        backgroundColor: ThemeColors['atu-gold-vd']
+    },
+    allButtonText:
+    {
+        fontSize: 18,
+        fontWeight: 700,
+        color: 'white'
+    }
+})
