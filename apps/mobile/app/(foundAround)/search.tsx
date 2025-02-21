@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, ScrollView, Pressable, Image, FlatList } from 'react-native';
-import PagerView from 'react-native-pager-view';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { ThemeColors } from '@/constants/Colors';
 
 
 
@@ -20,29 +20,31 @@ export default function MyPager() {
   return (
 
     <SafeAreaView className=''>
-      <View className='flex-row py-2 justify-evenly bg-atu-green-vl'>
-        <View className='w-2/5 bg-white border-4 border-gray-500 rounded-full'>
+      <View style={styles.headerContainer}>
+        <View style={styles.headerSearchContainer}>
           <Ionicons name="search-circle-sharp" size={28} color="gray" />
         </View>
-        <View className='justify-center w-2/5 bg-white border-4 rounded-full border-atu-gold-vd'>
-          <Text className='text-lg font-bold text-center text-atu-gold-vd' >Filter</Text>
+        <View style={styles.headerFilterContainer}>
+          <Text style={styles.headerFilterText}>Filter</Text>
         </View>
       </View>
-      <View className='items-center'>
+
+
+      <View style={styles.flatListContainer}>
         <FlatList
-          className='mb-28'
+          style={{ marginBottom: 112 }}
           data={currentNewsData}
           showsVerticalScrollIndicator={false}
           numColumns={3}
 
           renderItem={({ item, index }) => {
             return (
-              <View className='m-2 bg-gray-600 h-44 w-28'>
-                <Image className="bg-gray-400 h-28 aspect-square" source={require('../../assets/images/Pickle.png')} />
-                <View className='h-full gap-1 p-1'>
-                  <Text numberOfLines={1} ellipsizeMode='tail' className='text-xs text-gray-200'>Autddddddddddddddddddddddddddddddddddddddddadsahor</Text>
-                  <Text numberOfLines={1} ellipsizeMode='tail' className='text-xs font-bold text-white'>Titdwadwwwwwwwwwwwwwwwwwwwwwwwwwwwwwle</Text>
-                  <Text numberOfLines={1} ellipsizeMode='tail' className='text-xs text-gray-200'>Publish:Date, Timewwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww</Text>
+              <View style={styles.flatListItemContainer}>
+                <Image style={styles.flatListItemImage} source={require('../../assets/images/Pickle.png')} />
+                <View style={styles.flatListItemTextContainer}>
+                  <Text numberOfLines={1} ellipsizeMode='tail' style={styles.flatListItemDarkerText}>Autddddddddddddddddddddddddddddddddddddddddadsahor</Text>
+                  <Text numberOfLines={1} ellipsizeMode='tail' style={styles.flatListItemText}>Titdwadwwwwwwwwwwwwwwwwwwwwwwwwwwwwwle</Text>
+                  <Text numberOfLines={1} ellipsizeMode='tail' style={styles.flatListItemDarkerText}>Publish:Date, Timewwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww</Text>
                 </View>
               </View>
             )
@@ -58,8 +60,70 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  page: {
-    width: '100%',
-    height: '100%'
+  headerContainer:
+  {
+    flexDirection: 'row',
+    paddingVertical: 8,
+    justifyContent: 'space-evenly',
+    backgroundColor: ThemeColors['atu-green-vl']
   },
+  headerSearchContainer:
+  {
+    width: '40%',
+    backgroundColor: 'white',
+    borderWidth: 4,
+    borderColor: ThemeColors['gray'],
+    borderRadius: 999
+  },
+  headerFilterContainer:
+  {
+    width: '40%',
+    justifyContent: 'center',
+    backgroundColor: 'white',
+    borderWidth: 4,
+    borderRadius: 999,
+    borderColor: ThemeColors['atu-gold-vd']
+  },
+  headerFilterText:
+  {
+    fontSize: 18,
+    fontWeight: 700,
+    textAlign: 'center',
+    color: ThemeColors['atu-gold-vd']
+  },
+
+  flatListContainer:
+  {
+    alignItems: 'center'
+  },
+  flatListItemContainer:
+  {
+      backgroundColor: ThemeColors['gray'],
+      height: 182,
+      width: 112,
+      margin:8
+
+  },
+  flatListItemImage:
+  {
+      height: 112,
+      aspectRatio: 1 / 1
+  },
+  flatListItemTextContainer:
+  {
+      height: '100%',
+      gap: 4,
+      padding: 4
+  },
+  flatListItemDarkerText:
+  {
+      color: '#e5e7eb',
+      fontSize: 12,
+  },
+  flatListItemText:
+  {
+      color: 'white',
+      fontSize: 12,
+  }
+
 });
