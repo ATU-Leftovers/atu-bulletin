@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
   },
   searchAreaStyle:
   {
-    width: '50%',
+  
     height: '100%',
     paddingHorizontal: 12,
     paddingVertical: 4,
@@ -196,9 +196,8 @@ const styles = StyleSheet.create({
   },
   modalTransparentSpace:
   {
-    backgroundColor: ThemeColors['gray'],
-    opacity: .60,
-    height: '100%'
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   modalItemContainer:
   {
