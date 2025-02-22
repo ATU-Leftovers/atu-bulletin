@@ -10,6 +10,7 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { ThemeColors } from "@/constants/Colors";
 
 //35.2935600628583, -93.13574381577507
 const INITIAL_REGION = {
@@ -35,21 +36,21 @@ export default function App() {
   return (
     <View style={styles.container}>
 
-      <Pressable className="absolute z-20 w-40 h-8 top-2 left-3">
-        <View className="w-full h-full px-3 py-1 bg-white border-2 rounded-full border-gray-placeholder">
+      <Pressable style={styles.searchContainer}>
+        <View style={styles.searchStyle}>
           <FontAwesome name="search" size={16} />
         </View>
       </Pressable>
-      <Pressable className="absolute z-20 w-40 h-8 top-2 right-3">
-        <View className="h-full px-3 py-1 bg-white border-2 rounded-full border-atu-gold-vd">
-          <Text className="text-center text-atu-gold-vd">Filter</Text>
+      <Pressable style={styles.filterContainer}>
+        <View style={styles.filterStyle}>
+          <Text style={styles.filterText}>Filter</Text>
         </View>
       </Pressable>
 
-      <View className="absolute items-center justify-center flex-1 w-full top-9 h-11 z-21">
-        <Pressable className="absolute z-20 items-center">
-          <View className="w-1/2 h-full px-3 py-1 rounded-full bg-atu-gold-vd">
-            <Text className="text-center text-white">Search Area</Text>
+      <View style={styles.searchAreaContainer}>
+        <Pressable style={styles.searchAreaPressable}>
+          <View style={styles.searchAreaStyle}>
+            <Text style={styles.searchAreaText}>Search Area</Text>
           </View>
         </Pressable>
       </View>
@@ -65,32 +66,29 @@ export default function App() {
           />
         ))}
       </MapView>
-
+{/* 
       <View className="absolute bottom-0 items-center justify-center flex-1 w-full bg-white opacity-75 h-11 z-21">
         <Pressable className="absolute z-20 w-40 h-5 bottom-3">
           <View className="w-full h-full rounded-full bg-atu-gold-vd"></View>
         </Pressable>
-      </View>
+      </View> */}
 
       <Modal visible={openModal} transparent>
-        <Pressable onPress={() => { setOpenModal(false) }} className="items-center justify-center flex-1">
-          <View className=" bg-gray-100/50">
+        <Pressable onPress={() => { setOpenModal(false) }} style={styles.modalContainer}>
+          <View style={styles.modalTransparentSpace}>
             <TouchableWithoutFeedback>
-              <View className="w-10/12 p-2 m-20 bg-white border-8 shadow-2xl border-atu-green-vl rounded-2xl shadow-black">
-                <Text className="text-2xl font-bold">Title</Text>
+              <View style={styles.modalItemContainer}>
+                <Text style={styles.modalItemTitle}>Title</Text>
                 <Text style={{ opacity: 0.65 }}>Location</Text>
-                <Text className="pt-1 pb-3">
+                <Text style={styles.modalItemDes}>
                   Description
                   adasdasdasdadadasdasdasdadadasdasdasdadadasdasdasdadadasdasdasdadadasdasdasdadadasdasdasdadadasdasdasdadadasdasdasdadadasdasdasdadadasdasdasdadadasdasdasdadadasdasdasdadadasdasdasdadadasdasdasdadadasdasdasdadadasdasdasdad
                 </Text>
-                <View
-                  className="flex-row"
-                  style={{ justifyContent: "space-between" }}
-                >
-                  <Text className="font-bold"> Date, Time</Text>
+                <View style={styles.modalItemBottomContainer}>
+                  <Text style={styles.modalItemTime}> Date, Time</Text>
                   <Pressable>
-                    <View className="px-3 py-1 rounded-full bg-atu-gold-vd">
-                      <Text className="text-white">Learn More</Text>
+                    <View style={styles.modalItemButtonContainer}>
+                      <Text style={styles.modalItemButtonText}>Learn More</Text>
                     </View>
                   </Pressable>
                 </View>
@@ -107,17 +105,140 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  searchContainer:
+  {
+    position: 'absolute',
+    zIndex: 20,
+    width: 160,
+    height: 32,
+    top: 8,
+    left: 12
+  },
+  searchStyle:
+  {
+    width: '100%',
+    height: '100%',
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    backgroundColor: 'white',
+    borderWidth: 2,
+    borderRadius: 999,
+    borderColor: ThemeColors['gray-placeholder']
+  },
+  filterContainer:
+  {
+    position: 'absolute',
+    zIndex: 20,
+    width: 160,
+    height: 32,
+    top: 8,
+    right: 12
+  },
+  filterStyle:
+  {
+    height: '100%',
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    backgroundColor: 'white',
+    borderWidth: 2,
+    borderRadius: 999,
+    borderColor: ThemeColors['atu-gold-vd']
+  },
+  filterText:
+  {
+    textAlign: 'center',
+    color: ThemeColors['atu-gold-vd']
+  },
+  searchAreaContainer:
+  {
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
+    width: '100%',
+    top: 36,
+    height: 44,
+    zIndex: 21
+  },
+  searchAreaPressable:
+  {
+    position: 'absolute',
+    zIndex: 20,
+    alignItems: 'center'
+  },
+  searchAreaStyle:
+  {
+    width: '50%',
+    height: '100%',
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 999,
+    backgroundColor: ThemeColors['atu-gold-vd']
+  },
+  searchAreaText:
+  {
+    textAlign: 'center',
+    color: 'white'
+  },
+
   map: {
     width: "100%",
     height: "100%",
     zIndex: -1,
   },
-  actionButton: {
-    position: "absolute",
-    width: 20,
-    height: 20,
-    bottom: 10,
-    justifyContent: "center",
-    zIndex: 999,
+
+
+  modalContainer:
+  {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1
   },
+  modalTransparentSpace:
+  {
+    backgroundColor: ThemeColors['gray'],
+    opacity: .60,
+    height: '100%'
+  },
+  modalItemContainer:
+  {
+    width: '83%',
+    padding: 8,
+    margin: 80,
+    backgroundColor: 'white',
+    borderWidth: 8,
+    boxShadow: '0 7px 5px rgba(0, 0, 0, 0.2)',
+    borderColor: ThemeColors['atu-green-vl'],
+    borderRadius: 16,
+  },
+  modalItemTitle:
+  {
+    fontWeight: 700,
+    fontSize: 24
+  },
+  modalItemDes:
+  {
+    paddingTop: 4,
+    paddingBottom: 12
+  },
+  modalItemBottomContainer:
+  {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  modalItemTime:
+  {
+    fontWeight:700
+  },
+  modalItemButtonContainer:
+  {
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 999,
+    backgroundColor: ThemeColors['atu-gold-vd']
+  },
+  modalItemButtonText:
+  {
+    color: 'white'
+  }
 });
