@@ -1,40 +1,41 @@
 import { SafeAreaView } from "react-native-safe-area-context"
-import { Text, Pressable, View, ScrollView, TextInput } from "react-native";
+import { Text, Pressable, View, ScrollView, TextInput, StyleSheet } from "react-native";
+import { ThemeColors } from '@/constants/Colors';
 
 export default function AddEvent() {
 
     return (
-        <SafeAreaView >
-            <ScrollView className="flex">
+        <SafeAreaView style={styles.container}>
+            <ScrollView showsVerticalScrollIndicator={false}>
                 
-                <View className="p-2 mx-1">
-                    <Text className="mb-1 font-bold">Event Title</Text>
-                    <TextInput className="p-2 mb-2 bg-white border-2 rounded-full border-atu-gold"></TextInput>
+                <View style={styles.inputContainer}>
+                    <Text style={styles.inputText}>Event Title</Text>
+                    <TextInput style={styles.inputBox}></TextInput>
                 </View>
 
-                <View className="p-2 mx-1">
-                    <Text className="mb-1 font-bold">Location</Text>
-                    <TextInput className="p-2 mb-2 bg-white border-2 rounded-full border-atu-gold"></TextInput>
+                <View style={styles.inputContainer}>
+                    <Text style={styles.inputText}>Location</Text>
+                    <TextInput style={styles.inputBox}></TextInput>
                 </View>
 
-                <View className="p-2 mx-1">
-                    <Text className="mb-1 font-bold">Date, Time</Text>
-                    <TextInput className="p-2 mb-2 bg-white border-2 rounded-full border-atu-gold"></TextInput>
+                <View style={styles.inputContainer}>
+                    <Text style={styles.inputText}>Date, Time</Text>
+                    <TextInput style={styles.inputBox}></TextInput>
                 </View>
 
-                <View className="p-2 mx-1">
-                    <Text className="mb-1 font-bold">Summary</Text>
-                    <TextInput className="p-2 mb-2 bg-white border-2 rounded-full border-atu-gold"></TextInput>
+                <View style={styles.inputContainer}>
+                    <Text style={styles.inputText}>Summary</Text>
+                    <TextInput style={styles.inputLarge}></TextInput>
                 </View>
 
-                <View className="p-2 mx-1">
-                    <Text className="mb-1 font-bold">Cover Image</Text>
-                    <TextInput className="p-2 py-10 mb-2 bg-white border-2 rounded-md border-atu-gold"></TextInput>
+                <View style={styles.inputContainer}>
+                    <Text style={styles.inputText}>Cover Image</Text>
+                    <TextInput style={styles.inputBox}></TextInput>
                 </View>
 
-                <Pressable className='flex items-center'>
-                    <View className="px-5 py-1 mt-3 mb-5 rounded-full bg-atu-gold-vd">
-                        <Text className="text-lg font-bold text-white">Add Event</Text>
+                <Pressable style={styles.buttonContainer}>
+                    <View style={styles.buttonBox}>
+                        <Text style={styles.buttonText}>Add Event</Text>
                     </View>
                 </Pressable>
                 
@@ -42,3 +43,57 @@ export default function AddEvent() {
         </SafeAreaView>
     )
 }
+
+const styles = StyleSheet.create({
+    container:{
+        flex: 1,
+    },
+    inputContainer:{
+        padding: 5,
+        marginLeft: 2,
+        marginRight: 2,
+    },
+    inputText:{
+        marginBottom: 1,
+        fontWeight: 'bold',
+    },
+    inputBox:{
+        padding: 10,
+        marginBottom: 2,
+        backgroundColor: 'white',
+        borderRadius: 20,
+        borderWidth: 2,
+        borderColor: ThemeColors['atu-gold-vd'],
+    },
+    inputLarge:{
+        padding: 2,
+        paddingTop: 50,
+        paddingBottom: 50,
+        marginBottom: 2,
+        backgroundColor: 'white',
+        borderRadius: 20,
+        borderWidth: 2,
+        borderColor: ThemeColors['atu-gold-vd'],
+    },
+    buttonContainer:{
+        flex: 1,
+        alignItems: 'center',
+    },
+    buttonBox:{
+        paddingLeft: 15,
+        paddingRight: 15,
+        paddingTop: 10,
+        paddingBottom: 10, 
+        marginTop: 10,
+        marginBottom: 20,
+        borderRadius: 10,
+        borderWidth: 2,
+        borderColor: ThemeColors['atu-gold-vd'],
+        backgroundColor: ThemeColors['atu-gold-vd'],
+    },
+    buttonText:{
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: 'white',
+    }   
+})
