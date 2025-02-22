@@ -1,7 +1,9 @@
-import { View, Text, ScrollView, FlatList,} from 'react-native';
+import { View, Text, ScrollView, FlatList, StyleSheet} from 'react-native';
 import React, { useEffect, useState } from 'react';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { SafeAreaView } from "react-native-safe-area-context"
+import ListingComponent from '@/components/listingComponent';
+import { ThemeColors } from '@/constants/Colors';
 
 export default function Organizations() {
 
@@ -13,347 +15,48 @@ export default function Organizations() {
     }, [])
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={styles.container}>
 
-            <View className='py-4 bg-atu-gold-vl'>
-                <Text className='pl-4 font-bold text-center text-white'>ATU Clubs and Organizations</Text>
+            <View style={styles.banner}>
+                <Text style={styles.bannerText}>ATU Clubs and Organizations</Text>
             </View>
 
-            <ScrollView>
-                <View className='py-2 mt-4 bg-atu-green-vl'>
-                    <Text className='pl-4 font-bold text-white'>Academic</Text>
-                    <FlatList
-                        className='py-1'
-                        data={currentData}
-                        horizontal={true}
-                        showsHorizontalScrollIndicator={false}
-                        renderItem={({ item, index }) => {
-                            if (index == currentData.length - 1) {
-                                return (
-                                    <View className='items-center justify-center mx-4 bg-gray-600 h-28 w-28'>
-                                        <MaterialCommunityIcons name="plus-thick" size={24} color="white" />
-                                        <Text className='font-bold text-white'>View More</Text>
-                                    </View>
-                                )
-                            }
-                            else {
-                                return (
-                                    <View className='ml-4 bg-gray-600 h-28 w-28'>
-                                        <View className='h-full gap-1 p-1'>
-                                            <Text numberOfLines={1} ellipsizeMode='tail' className='text-xs font-bold text-white'>Name</Text>
-                                            <Text numberOfLines={1} ellipsizeMode='tail' className='text-xs text-gray-200'>Description: </Text>
-                                        </View>
-                                    </View>
-                                )
-                            }
-                        }}
-                    />
-                </View>
+            <ScrollView showsVerticalScrollIndicator={false}>
 
-                <View className='py-2 mt-4 bg-atu-green-vl'>
-                    <Text className='pl-4 font-bold text-white'>Advocacy/Awarness</Text>
-                    <FlatList
-                        className='py-1'
-                        data={currentData}
-                        horizontal={true}
-                        showsHorizontalScrollIndicator={false}
-                        renderItem={({ item, index }) => {
-                            if (index == currentData.length - 1) {
-                                return (
-                                    <View className='items-center justify-center mx-4 bg-gray-600 h-28 w-28'>
-                                        <MaterialCommunityIcons name="plus-thick" size={24} color="white" />
-                                        <Text className='font-bold text-white'>View More</Text>
-                                    </View>
-                                )
-                            }
-                            else {
-                                return (
-                                    <View className='ml-4 bg-gray-600 h-28 w-28'>
-                                        <View className='h-full gap-1 p-1'>
-                                            <Text numberOfLines={1} ellipsizeMode='tail' className='text-xs font-bold text-white'>Name</Text>
-                                            <Text numberOfLines={1} ellipsizeMode='tail' className='text-xs text-gray-200'>Description: </Text>
-                                        </View>
-                                    </View>
-                                )
-                            }
-                        }}
-                    />
-                </View>
-
-                <View className='py-2 mt-4 bg-atu-green-vl'>
-                    <Text className='pl-4 font-bold text-white'>Arts</Text>
-                    <FlatList
-                        className='py-1'
-                        data={currentData}
-                        horizontal={true}
-                        showsHorizontalScrollIndicator={false}
-                        renderItem={({ item, index }) => {
-                            if (index == currentData.length - 1) {
-                                return (
-                                    <View className='items-center justify-center mx-4 bg-gray-600 h-28 w-28'>
-                                        <MaterialCommunityIcons name="plus-thick" size={24} color="white" />
-                                        <Text className='font-bold text-white'>View More</Text>
-                                    </View>
-                                )
-                            }
-                            else {
-                                return (
-                                    <View className='ml-4 bg-gray-600 h-28 w-28'>
-                                        <View className='h-full gap-1 p-1'>
-                                            <Text numberOfLines={1} ellipsizeMode='tail' className='text-xs font-bold text-white'>Name</Text>
-                                            <Text numberOfLines={1} ellipsizeMode='tail' className='text-xs text-gray-200'>Description: </Text>
-                                        </View>
-                                    </View>
-                                )
-                            }
-                        }}
-                    />
-                </View>
-
-                <View className='py-2 mt-4 bg-atu-green-vl'>
-                    <Text className='pl-4 font-bold text-white'>Campus Involvement</Text>
-                    <FlatList
-                        className='py-1'
-                        data={currentData}
-                        horizontal={true}
-                        showsHorizontalScrollIndicator={false}
-                        renderItem={({ item, index }) => {
-                            if (index == currentData.length - 1) {
-                                return (
-                                    <View className='items-center justify-center mx-4 bg-gray-600 h-28 w-28'>
-                                        <MaterialCommunityIcons name="plus-thick" size={24} color="white" />
-                                        <Text className='font-bold text-white'>View More</Text>
-                                    </View>
-                                )
-                            }
-                            else {
-                                return (
-                                    <View className='ml-4 bg-gray-600 h-28 w-28'>
-                                        <View className='h-full gap-1 p-1'>
-                                            <Text numberOfLines={1} ellipsizeMode='tail' className='text-xs font-bold text-white'>Name</Text>
-                                            <Text numberOfLines={1} ellipsizeMode='tail' className='text-xs text-gray-200'>Description: </Text>
-                                        </View>
-                                    </View>
-                                )
-                            }
-                        }}
-                    />
-                </View>
-
-                <View className='py-2 mt-4 bg-atu-green-vl'>
-                    <Text className='pl-4 font-bold text-white'>Community Service</Text>
-                    <FlatList
-                        className='py-1'
-                        data={currentData}
-                        horizontal={true}
-                        showsHorizontalScrollIndicator={false}
-                        renderItem={({ item, index }) => {
-                            if (index == currentData.length - 1) {
-                                return (
-                                    <View className='items-center justify-center mx-4 bg-gray-600 h-28 w-28'>
-                                        <MaterialCommunityIcons name="plus-thick" size={24} color="white" />
-                                        <Text className='font-bold text-white'>View More</Text>
-                                    </View>
-                                )
-                            }
-                            else {
-                                return (
-                                    <View className='ml-4 bg-gray-600 h-28 w-28'>
-                                        <View className='h-full gap-1 p-1'>
-                                            <Text numberOfLines={1} ellipsizeMode='tail' className='text-xs font-bold text-white'>Name</Text>
-                                            <Text numberOfLines={1} ellipsizeMode='tail' className='text-xs text-gray-200'>Description: </Text>
-                                        </View>
-                                    </View>
-                                )
-                            }
-                        }}
-                    />
-                </View>
-
-                <View className='py-2 mt-4 bg-atu-green-vl'>
-                    <Text className='pl-4 font-bold text-white'>Cultural</Text>
-                    <FlatList
-                        className='py-1'
-                        data={currentData}
-                        horizontal={true}
-                        showsHorizontalScrollIndicator={false}
-                        renderItem={({ item, index }) => {
-                            if (index == currentData.length - 1) {
-                                return (
-                                    <View className='items-center justify-center mx-4 bg-gray-600 h-28 w-28'>
-                                        <MaterialCommunityIcons name="plus-thick" size={24} color="white" />
-                                        <Text className='font-bold text-white'>View More</Text>
-                                    </View>
-                                )
-                            }
-                            else {
-                                return (
-                                    <View className='ml-4 bg-gray-600 h-28 w-28'>
-                                        <View className='h-full gap-1 p-1'>
-                                            <Text numberOfLines={1} ellipsizeMode='tail' className='text-xs font-bold text-white'>Name</Text>
-                                            <Text numberOfLines={1} ellipsizeMode='tail' className='text-xs text-gray-200'>Description: </Text>
-                                        </View>
-                                    </View>
-                                )
-                            }
-                        }}
-                    />
-                </View>
-
-                <View className='py-2 mt-4 bg-atu-green-vl'>
-                    <Text className='pl-4 font-bold text-white'>Greek</Text>
-                    <FlatList
-                        className='py-1'
-                        data={currentData}
-                        horizontal={true}
-                        showsHorizontalScrollIndicator={false}
-                        renderItem={({ item, index }) => {
-                            if (index == currentData.length - 1) {
-                                return (
-                                    <View className='items-center justify-center mx-4 bg-gray-600 h-28 w-28'>
-                                        <MaterialCommunityIcons name="plus-thick" size={24} color="white" />
-                                        <Text className='font-bold text-white'>View More</Text>
-                                    </View>
-                                )
-                            }
-                            else {
-                                return (
-                                    <View className='ml-4 bg-gray-600 h-28 w-28'>
-                                        <View className='h-full gap-1 p-1'>
-                                            <Text numberOfLines={1} ellipsizeMode='tail' className='text-xs font-bold text-white'>Name</Text>
-                                            <Text numberOfLines={1} ellipsizeMode='tail' className='text-xs text-gray-200'>Description: </Text>
-                                        </View>
-                                    </View>
-                                )
-                            }
-                        }}
-                    />
-                </View>
-
-                <View className='py-2 mt-4 bg-atu-green-vl'>
-                    <Text className='pl-4 font-bold text-white'>Hobby/Interest</Text>
-                    <FlatList
-                        className='py-1'
-                        data={currentData}
-                        horizontal={true}
-                        showsHorizontalScrollIndicator={false}
-                        renderItem={({ item, index }) => {
-                            if (index == currentData.length - 1) {
-                                return (
-                                    <View className='items-center justify-center mx-4 bg-gray-600 h-28 w-28'>
-                                        <MaterialCommunityIcons name="plus-thick" size={24} color="white" />
-                                        <Text className='font-bold text-white'>View More</Text>
-                                    </View>
-                                )
-                            }
-                            else {
-                                return (
-                                    <View className='ml-4 bg-gray-600 h-28 w-28'>
-                                        <View className='h-full gap-1 p-1'>
-                                            <Text numberOfLines={1} ellipsizeMode='tail' className='text-xs font-bold text-white'>Name</Text>
-                                            <Text numberOfLines={1} ellipsizeMode='tail' className='text-xs text-gray-200'>Description: </Text>
-                                        </View>
-                                    </View>
-                                )
-                            }
-                        }}
-                    />
-                </View>
-
-                <View className='py-2 mt-4 bg-atu-green-vl'>
-                    <Text className='pl-4 font-bold text-white'>Political</Text>
-                    <FlatList
-                        className='py-1'
-                        data={currentData}
-                        horizontal={true}
-                        showsHorizontalScrollIndicator={false}
-                        renderItem={({ item, index }) => {
-                            if (index == currentData.length - 1) {
-                                return (
-                                    <View className='items-center justify-center mx-4 bg-gray-600 h-28 w-28'>
-                                        <MaterialCommunityIcons name="plus-thick" size={24} color="white" />
-                                        <Text className='font-bold text-white'>View More</Text>
-                                    </View>
-                                )
-                            }
-                            else {
-                                return (
-                                    <View className='ml-4 bg-gray-600 h-28 w-28'>
-                                        <View className='h-full gap-1 p-1'>
-                                            <Text numberOfLines={1} ellipsizeMode='tail' className='text-xs font-bold text-white'>Name</Text>
-                                            <Text numberOfLines={1} ellipsizeMode='tail' className='text-xs text-gray-200'>Description: </Text>
-                                        </View>
-                                    </View>
-                                )
-                            }
-                        }}
-                    />
-                </View>
-
-                <View className='py-2 mt-4 bg-atu-green-vl'>
-                    <Text className='pl-4 font-bold text-white'>Sports</Text>
-                    <FlatList
-                        className='py-1'
-                        data={currentData}
-                        horizontal={true}
-                        showsHorizontalScrollIndicator={false}
-                        renderItem={({ item, index }) => {
-                            if (index == currentData.length - 1) {
-                                return (
-                                    <View className='items-center justify-center mx-4 bg-gray-600 h-28 w-28'>
-                                        <MaterialCommunityIcons name="plus-thick" size={24} color="white" />
-                                        <Text className='font-bold text-white'>View More</Text>
-                                    </View>
-                                )
-                            }
-                            else {
-                                return (
-                                    <View className='ml-4 bg-gray-600 h-28 w-28'>
-                                        <View className='h-full gap-1 p-1'>
-                                            <Text numberOfLines={1} ellipsizeMode='tail' className='text-xs font-bold text-white'>Name</Text>
-                                            <Text numberOfLines={1} ellipsizeMode='tail' className='text-xs text-gray-200'>Description: </Text>
-                                        </View>
-                                    </View>
-                                )
-                            }
-                        }}
-                    />
-                </View>
-
-                <View className='py-2 mt-4 mb-14 bg-atu-green-vl'>
-                    <Text className='pl-4 font-bold text-white'>Religious</Text>
-                    <FlatList
-                        className='py-1'
-                        data={currentData}
-                        horizontal={true}
-                        showsHorizontalScrollIndicator={false}
-                        renderItem={({ item, index }) => {
-                            if (index == currentData.length - 1) {
-                                return (
-                                    <View className='items-center justify-center mx-4 bg-gray-600 h-28 w-28'>
-                                        <MaterialCommunityIcons name="plus-thick" size={24} color="white" />
-                                        <Text className='font-bold text-white'>View More</Text>
-                                    </View>
-                                )
-                            }
-                            else {
-                                return (
-                                    <View className='ml-4 bg-gray-600 h-28 w-28'>
-                                        <View className='h-full gap-1 p-1'>
-                                            <Text numberOfLines={1} ellipsizeMode='tail' className='text-xs font-bold text-white'>Name</Text>
-                                            <Text numberOfLines={1} ellipsizeMode='tail' className='text-xs text-gray-200'>Description: </Text>
-                                        </View>
-                                    </View>
-                                )
-                            }
-                        }}
-                    />
-                </View>
+                <ListingComponent data={currentData} title='Academic' backgroundColor='atu-green-vl'/>
+                <ListingComponent data={currentData} title='Advocacy/Awarness' backgroundColor='atu-green-vl'/>
+                <ListingComponent data={currentData} title='Arts' backgroundColor='atu-green-vl'/>
+                <ListingComponent data={currentData} title='Campus Involvement' backgroundColor='atu-green-vl'/>
+                <ListingComponent data={currentData} title='Community Service' backgroundColor='atu-green-vl'/>
+                <ListingComponent data={currentData} title='Cultural' backgroundColor='atu-green-vl'/>
+                <ListingComponent data={currentData} title='Greek' backgroundColor='atu-green-vl'/>
+                <ListingComponent data={currentData} title='Hobby/Interest' backgroundColor='atu-green-vl'/>
+                <ListingComponent data={currentData} title='Political' backgroundColor='atu-green-vl'/>
+                <ListingComponent data={currentData} title='Sports' backgroundColor='atu-green-vl'/>
+                <ListingComponent data={currentData} title='Religious' backgroundColor='atu-green-vl'/>
 
             </ScrollView>
+            
         </SafeAreaView>
     )
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
+
+    banner: {
+        paddingVertical: 20,
+        backgroundColor: ThemeColors['atu-gold-vd']
+    },
+
+    bannerText: {
+        color: 'white',
+        fontWeight: 900,
+        textAlign: 'center',
+    }
+});
 
 
 // TODO merge old organizations
