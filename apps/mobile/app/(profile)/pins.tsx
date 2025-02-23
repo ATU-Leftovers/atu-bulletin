@@ -1,8 +1,9 @@
 import { SafeAreaView } from "react-native-safe-area-context"
-import { FlatList, ScrollView, Text, View, Image, Pressable } from "react-native";
+import { FlatList, ScrollView, Text, View, Image, Pressable, StyleSheet } from "react-native";
 import { useEffect, useState } from "react";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import RemovePins from "@/components/removePins";
+import { ThemeColors } from "@/constants/Colors";
 
 export default function Pins() {
     const [currentNewsData, setCurrentNewsData] = useState<any>([])
@@ -22,9 +23,9 @@ export default function Pins() {
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item, index }) => {
                     return (
-                        <View key={index} className='flex-row justify-between py-2 mx-6 border-b-4 border-gray-400'>
-                            <View className="justify-center align-middle">
-                                <Text className="ml-3 text-2xl">Department Name</Text>
+                        <View key={index} style={styles.flatListItemContainer}>
+                            <View style={styles.flatListItemTextContainer}>
+                                <Text style={styles.flatListItemText}>Department Name</Text>
                             </View>
                             <Pressable onPress={() =>{setRemovePinModal(true)}}>
                                 <MaterialCommunityIcons name="delete-circle-outline" size={48} color="#A52A2A" />
@@ -37,3 +38,29 @@ export default function Pins() {
         </SafeAreaView>
     )
 }
+
+const styles= StyleSheet.create({
+    container:
+    {
+        justifyContent: 'center',
+    },
+    flatListItemContainer:
+    {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingVertical: 8,
+        marginHorizontal: 24,
+        borderBottomWidth: 4,
+        borderColor: ThemeColors['gray-placeholder']
+    },
+    flatListItemTextContainer:
+    {
+        justifyContent: 'center',
+        verticalAlign: 'middle'
+    },
+    flatListItemText:
+    {
+        marginLeft: 12,
+        fontSize: 24
+    }
+})
