@@ -1,3 +1,4 @@
+import { ThemeColors } from '@/constants/Colors';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { Modal, View, Text, Pressable, StyleSheet, TextInput } from 'react-native';
 
@@ -13,18 +14,18 @@ export default function RemovePins(props: propValue) {
 
     return (
         <Modal transparent visible={props.isVisible}>
-            <View className="items-center justify-center flex-1 bg-gray-100/50">
-                <View className="w-3/4 p-2 bg-white border-8 shadow-2xl rounded-2xl shadow-black border-atu-gold-vd">
-                    <Text className='mx-5 mt-4 mb-10 text-2xl font-bold text-center'>Want to remove this pin?</Text>
-                    <View className='flex-row justify-between'>
+            <View style={styles.container}>
+                <View style={styles.modalContainer}>
+                    <Text style={styles.modalTitleText}>Want to remove this pin?</Text>
+                    <View style={styles.modalActionContainer}>
                         <Pressable onPress={() => { props.close() }} >
-                            <View className='px-4 py-1 bg-white border-4 rounded-full border-atu-gold-vd'>
-                                <Text className='text-lg font-semibold'>Cancel</Text>
+                            <View style={{...styles.modalActionStyle, backgroundColor: 'white'}}>
+                                <Text style={styles.modalActionText}>Cancel</Text>
                             </View>
                         </Pressable>
                         <Pressable onPress={() => { props.delete() }}>
-                            <View className='px-4 py-1 border-4 rounded-full bg-atu-gold-vd border-atu-gold-vd'>
-                                <Text className='text-lg font-semibold text-white'>Confirm</Text>
+                            <View style={{...styles.modalActionStyle, backgroundColor: ThemeColors['atu-gold-vd']}}>
+                                <Text style={{...styles.modalActionText, color: 'white'}}>Confirm</Text>
                             </View>
                         </Pressable>
                     </View>
@@ -33,3 +34,49 @@ export default function RemovePins(props: propValue) {
         </Modal>
     )
 }
+
+const styles = StyleSheet.create({
+    container: 
+    {
+        alignItems: 'center',
+        justifyContent: 'center',
+        flex: 1,
+    },
+    modalContainer:
+    {
+        width: '75%',
+        padding: 8,
+        backgroundColor: 'white',
+        borderWidth: 8,
+        boxShadow: '0 7px 5px rgba(0, 0, 0, 0.2)',
+        borderColor: ThemeColors['atu-gold-vd'],
+        borderRadius: 16
+    },
+    modalTitleText:
+    {
+        marginHorizontal: 20,
+        marginTop: 16,
+        marginBottom: 40,
+        fontSize: 24,
+        fontWeight: 700,
+        textAlign: 'center'
+    },
+    modalActionContainer:
+    {
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+    modalActionStyle:
+    {
+        paddingVertical: 4,
+        paddingHorizontal: 16,
+        borderWidth: 4,
+        borderRadius: 999,
+        borderColor: ThemeColors['atu-gold-vd']
+    },
+    modalActionText:
+    {
+        fontSize: 18,
+        fontWeight: 600
+    }
+})
