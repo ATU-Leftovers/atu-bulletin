@@ -1,7 +1,8 @@
 import { SafeAreaView } from "react-native-safe-area-context"
-import { Switch, Text, View, Pressable } from "react-native";
+import { Switch, Text, View, Pressable, StyleSheet } from "react-native";
 import { useState } from "react";
 import React from "react";
+import { ThemeColors } from "@/constants/Colors";
 
 
 export default function Settings() {
@@ -11,11 +12,11 @@ export default function Settings() {
 
 
     return (
-        <SafeAreaView className="justify-center justify-items-center">
-            <Text className="ml-6 text-1xl">Preferences</Text>
-            <View className='flex-row justify-between py-2 mx-6 border-b-4 border-gray-400'>
-                <View className="justify-center align-middle">
-                    <Text className="ml-3 text-2xl">Theme</Text>
+        <SafeAreaView style={styles.container}>
+            <Text style={styles.headerText}>Preferences</Text>
+            <View style={styles.infoContainer}>
+                <View style={styles.infoRowContainer}>
+                    <Text style={styles.infoText}>Theme</Text>
                     <Switch
                         trackColor={{ false: '#ddbf5f', true: '#4b7f52' }}
                         thumbColor={isEnabled ? '#78797b' : '#78797b'}
@@ -25,16 +26,16 @@ export default function Settings() {
                     />
                 </View>
             </View>
-            <Text className="ml-6 text-1xl">Accessibility</Text>
-            <View className='flex-row justify-between py-2 mx-6 border-b-4 border-gray-400'>
+            {/* <Text style={styles.headerText}>Accessibility</Text>
+            <View style={styles.infoContainer}>
                 <View className="justify-center align-middle">
-                    <Text className="ml-3 text-2xl">Font Size</Text>
+                    <Text style={styles.infoText}>Font Size</Text>
                     <Pressable>
                         <View className="px-2 py-1 mt-2 bg-atu-gold-vd">
                             <Text className="font-bold text-white">v 1x</Text>
                         </View>
                     </Pressable>
-                    <Text className="ml-3 text-2xl">Language</Text>
+                    <Text style={styles.infoText}>Language</Text>
                     <Pressable>
                         <View className="px-2 py-1 mt-2 bg-atu-gold-vd">
                             <Text className="font-bold text-white">English</Text>
@@ -42,22 +43,24 @@ export default function Settings() {
                     </Pressable>
 
                 </View>
-            </View>
+            </View> */}
             {!isDefault && (
                 <>
-                    <Text className="ml-6 text-1xl">Profile</Text>
-                    <View className='flex-row justify-between py-2 mx-6 border-b-4 border-gray-400'>
-                        <View className="justify-center align-middle">
-                            <Text className="ml-3 text-2xl">Name: Username</Text>
+                    <Text style={styles.headerText}>Profile</Text>
+                    <View style={styles.infoContainer}>
+                        <View  style={styles.infoRowContainer}>
+                            <Text style={styles.infoText}>Name: Username</Text>
                             <Pressable>
-                                <View className="px-2 py-1 mt-2 rounded-full bg-atu-gold-vd">
-                                    <Text className="font-bold text-white">Change</Text>
+                                <View style={styles.changeButtonStyle}>
+                                    <Text style={styles.changeButtonText}>Change</Text>
                                 </View>
                             </Pressable>
-                            <Text className="ml-3 text-2xl">Banner Image</Text>
+                        </View>
+                        <View  style={styles.infoRowContainer}>
+                            <Text style={styles.infoText}>Banner Image</Text>
                             <Pressable>
-                                <View className="px-2 py-1 mt-2 rounded-full bg-atu-gold-vd">
-                                    <Text className="font-bold text-white">Change</Text>
+                                <View style={styles.changeButtonStyle}>
+                                    <Text style={styles.changeButtonText}>Change</Text>
                                 </View>
                             </Pressable>
                         </View>
@@ -67,3 +70,51 @@ export default function Settings() {
         </SafeAreaView>
     )
 }
+
+
+const styles = StyleSheet.create({
+    container:
+    {
+        justifyContent: 'center',
+        padding: 34
+    },
+    headerText:
+    {
+        marginTop: 10,
+        fontSize: 20,
+        fontWeight: 600
+    },
+    infoContainer:
+    {
+        paddingHorizontal: 16,
+        paddingTop: 10,
+        paddingBottom: 20,
+        borderBottomWidth: 4,
+        borderColor: ThemeColors['gray-placeholder'],
+        gap: 15,
+    },
+    infoText:
+    {
+        fontSize: 18
+    },
+    infoRowContainer:
+    {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+    },
+    changeButtonStyle:
+    {
+        paddingVertical: 4,
+        paddingHorizontal: 8,
+        borderRadius: 999,
+        backgroundColor: ThemeColors['atu-gold-vd']
+    },
+    changeButtonText:
+    {
+        fontWeight: 700,
+        color: 'white',
+        textAlign: 'center'
+    }
+
+})

@@ -1,6 +1,8 @@
+import ListingComponent from "@/components/listingComponent";
+import { ThemeColors } from "@/constants/Colors";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { useEffect, useState } from "react";
-import { SafeAreaView, ScrollView, View, Text, Image, FlatList } from "react-native";
+import { SafeAreaView, ScrollView, View, Text, Image, StyleSheet } from "react-native";
 
 export default function NonDefaultProfile() {
 
@@ -15,88 +17,63 @@ export default function NonDefaultProfile() {
     return (
         <SafeAreaView>
             <ScrollView showsVerticalScrollIndicator={false}>
-                <View className='items-end mx-1 my-2'>
-                    <View className='px-4 py-1 mr-3 rounded-full shadow-md shadow-black bg-atu-gold-v'>
-                        <Text className='text-lg font-bold text-center text-white'>Pin</Text>
+                <View style={styles.pinContainter}>
+                    <View style={styles.pinStyle}>
+                        <Text style={styles.pinText}>Pin</Text>
                     </View>
                 </View>
 
-                <View className="flex-row" style={{ boxShadow: '0 7px 5px rgba(0, 0, 0, 0.2)' }}>
-                    <Image style={{ justifyContent: 'center', alignItems: 'center', flex: 1, }} className=" bg-atu-green-vl2 aspect-video" resizeMode='contain' source={require('../../../assets/images/Test.png')} />
+                <View style={styles.bannerContainer}>
+                    <Image style={styles.bannerImage} resizeMode='contain' source={require('../../../assets/images/Test.png')} />
                 </View>
 
 
-                <View className='flex py-2 mt-5 bg-atu-green-vl' style={{ boxShadow: '0 7px 5px rgba(0, 0, 0, 0.2)' }}>
-                    <Text className='px-3 text-lg font-bold text-white'>Events</Text>
-                    <FlatList
-                        className='py-1'
-                        data={currentEventData}
-                        horizontal={true}
-                        showsHorizontalScrollIndicator={false}
-                        renderItem={({ item, index }) => {
-                            //Last Item Redirect
-                            if (index == currentEventData.length - 1) {
-                                return (
-                                    <View className='items-center justify-center mx-4 bg-gray-600 h-44 w-28'>
-                                        <MaterialCommunityIcons name="plus-thick" size={24} color="white" />
-                                        <Text className='font-bold text-white'>View More</Text>
-                                    </View>
-                                )
-                            }
-                            //Render Regular Items
-                            else {
-                                return (
-                                    <View className='ml-4 bg-gray-600 h-44 w-28'>
-                                        <Image className="bg-gray-400 h-28 aspect-square" source={require('../../../assets/images/Pickle.png')} />
-                                        <View className='h-full gap-1 p-1'>
-                                            <Text numberOfLines={1} ellipsizeMode='tail' className='text-xs text-gray-200'>Autddddddddddddddddddddddddddddddddddddddddadsahor</Text>
-                                            <Text numberOfLines={1} ellipsizeMode='tail' className='text-xs font-bold text-white'>Titdwadwwwwwwwwwwwwwwwwwwwwwwwwwwwwwle</Text>
-                                            <Text numberOfLines={1} ellipsizeMode='tail' className='text-xs text-gray-200'>Publish:Date, Timewwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww</Text>
-                                        </View>
-                                    </View>
-                                )
-                            }
-                        }}
-                    />
-                </View>
-                
-                <View className='flex py-2 mt-5 mb-5 bg-atu-green-vl' style={{ boxShadow: '0 7px 5px rgba(0, 0, 0, 0.2)' }}>
-                    <Text className='px-3 text-lg font-bold text-white'>News</Text>
-                    <FlatList
-                        className='py-1'
-                        data={currentEventData}
-                        horizontal={true}
-                        showsHorizontalScrollIndicator={false}
-                        renderItem={({ item, index }) => {
-                            //Last Item Redirect
-                            if (index == currentEventData.length - 1) {
-                                return (
-                                    <View className='items-center justify-center mx-4 bg-gray-600 h-44 w-28'>
-                                        <MaterialCommunityIcons name="plus-thick" size={24} color="white" />
-                                        <Text className='font-bold text-white'>View More</Text>
-                                    </View>
-                                )
-                            }
-                            //Render Regular Items
-                            else {
-                                return (
-                                    <View className='ml-4 bg-gray-600 h-44 w-28'>
-                                        <Image className="bg-gray-400 h-28 aspect-square" source={require('../../../assets/images/Pickle.png')} />
-                                        <View className='h-full gap-1 p-1'>
-                                            <Text numberOfLines={1} ellipsizeMode='tail' className='text-xs text-gray-200'>Autddddddddddddddddddddddddddddddddddddddddadsahor</Text>
-                                            <Text numberOfLines={1} ellipsizeMode='tail' className='text-xs font-bold text-white'>Titdwadwwwwwwwwwwwwwwwwwwwwwwwwwwwwwle</Text>
-                                            <Text numberOfLines={1} ellipsizeMode='tail' className='text-xs text-gray-200'>Publish:Date, Timewwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww</Text>
-                                        </View>
-                                    </View>
-                                )
-                            }
-                        }}
-                    />
-                </View>
+                <ListingComponent title="Events" backgroundColor="atu-green-vl" data={[]}/>
+                <ListingComponent title="News" backgroundColor="atu-green-vl" data={[]}/>
             </ScrollView>
         </SafeAreaView>
     )
 }
+
+const styles = StyleSheet.create({
+    pinContainter:
+    {
+        alignItems: 'flex-end',
+        marginVertical: 4,
+        marginHorizontal: 8
+    },
+    pinStyle:
+    {
+        paddingHorizontal: 16,
+        paddingVertical: 4,
+        marginRight:12,
+        borderRadius: 999,
+        boxShadow: '0 7px 5px rgba(0, 0, 0, 0.2)',
+        backgroundColor: ThemeColors['atu-gold-vd']
+    },
+    pinText:
+    {
+        fontSize: 18,
+        fontWeight: 700,
+        textAlign: 'center',
+        color: 'white'
+    },
+    bannerContainer:
+    {
+        flexDirection: 'row',
+        boxShadow: '0 7px 5px rgba(0, 0, 0, 0.2)',
+    },
+    bannerImage:
+    {
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        flex: 1,
+        backgroundColor: ThemeColors['atu-green-vl2'],
+        aspectRatio: 16/9
+    }
+
+})
+
 
 
 //TODO: MERGE [id]

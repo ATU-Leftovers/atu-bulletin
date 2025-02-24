@@ -1,4 +1,5 @@
-import { Modal, View, Text, Pressable, TextInput} from "react-native";
+import { ThemeColors } from "@/constants/Colors";
+import { Modal, View, Text, Pressable, TextInput, StyleSheet} from "react-native";
 
 type propValue = {
     isVisible: boolean;
@@ -10,22 +11,22 @@ export default function ReportPost(props: propValue) {
 
     return (
         <Modal transparent visible={props.isVisible}>
-            <View className="items-center justify-center flex-1">
-                <View className="p-3 bg-white border-4 border-red-500 rounded-lg shadow-md shadow-black">
-                    <Text className="p-1 mx-5 mb-1 text-3xl font-bold text-center text-white bg-red-500 rounded-lg">Report</Text>
-                    <Text className="mt-2">Describe the issue(s) with the post.</Text>
-                    <View className="p-2 m-2">
-                        <TextInput className="p-2 pb-20 mb-2 bg-white border-2 border-red-500 rounded-md"></TextInput>
+            <View style={styles.container}>
+                <View style={styles.modalContainer}>
+                    <Text style={styles.modalTitle}>Report</Text>
+                    <Text style={styles.modalSubHeader}>Describe the issue(s) with the post.</Text>
+                    <View style={styles.modalInputContainer}>
+                        <TextInput style={styles.modalInput} multiline={true} scrollEnabled={true}></TextInput>
                     </View>
-                    <View className="flex-row justify-between">
+                    <View style={styles.modalActionContainer}>
                         <Pressable onPress={() => { props.close() }} >
-                            <View className="px-4 py-1 mx-4 bg-white border-4 border-red-500 rounded-full">
-                                <Text className="text-lg font-bold text-red-500">Cancel</Text>
+                            <View style={styles.modalActionCancelContainer}>
+                                <Text style={styles.modalActionCancelText}>Cancel</Text>
                             </View>
                         </Pressable>
                         <Pressable onPress={() => { props.delete() }}>
-                            <View className="px-4 py-1 mx-4 bg-red-500 border-4 border-red-500 rounded-full">
-                                <Text className="text-lg font-bold text-white">Submit</Text>
+                            <View style={styles.modalActionSubmitContainer}>
+                                <Text style={styles.modalActionSubmitText}>Submit</Text>
                             </View>
                         </Pressable>
                     </View>
@@ -34,3 +35,89 @@ export default function ReportPost(props: propValue) {
         </Modal>
     )
 }
+
+const styles =StyleSheet.create({
+    container:
+    {
+        alignItems: 'center',
+        justifyContent: 'center',
+        flex: 1
+    },
+    modalContainer:
+    {
+        padding: 12,
+        backgroundColor: 'white',
+        borderColor: ThemeColors['red'],
+        borderRadius: 16,
+        borderWidth: 4,
+        boxShadow: '0 7px 5px rgba(0, 0, 0, 0.2)',
+        width: '75%',
+    },
+    modalTitle:
+    {
+        padding: 4,
+        marginTop:20,
+        marginBottom: 4,
+        fontSize: 30, 
+        fontWeight: 700,
+        textAlign: 'center',
+        color: 'white',
+        backgroundColor: ThemeColors['red'],
+        borderRadius: 16 
+    },
+    modalSubHeader:
+    {
+        marginTop: 8
+    },
+    modalInputContainer:
+    {
+        height: 260,
+        padding: 8,
+        margin: 8
+    },
+    modalInput:
+    {
+        height: '100%',
+        padding: 8,
+        marginBottom: 8,
+        backgroundColor: 'white',
+        borderWidth: 2,
+        borderColor: ThemeColors['red'],
+        borderRadius: 8
+    },
+    modalActionContainer:
+    {
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+    modalActionCancelContainer:
+    {
+        paddingHorizontal: 16, 
+        paddingVertical: 4,
+        backgroundColor: 'white',
+        borderWidth: 4,
+        borderColor: ThemeColors['red'],
+        borderRadius: 999
+    },
+    modalActionCancelText:
+    {
+        fontSize: 16,
+        fontWeight: 700,
+        color: ThemeColors['red']
+    },
+    modalActionSubmitContainer:
+    {
+        paddingHorizontal: 16, 
+        paddingVertical: 4,
+        backgroundColor: ThemeColors['red'],
+        borderWidth: 4,
+        borderColor: ThemeColors['red'],
+        borderRadius: 999
+    },
+    modalActionSubmitText:
+    {
+        fontSize: 16,
+        fontWeight: 700,
+        color: 'white'
+    },
+})

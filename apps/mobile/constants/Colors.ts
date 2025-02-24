@@ -11,5 +11,6 @@ export const ThemeColors = {
     'atu-gold-v': '#ddbf5f',
     'atu-gold-vd': '#d4af37',
     'gray-placeholder' : '#6c6d72',
-    'gray' : '#6b7280'
+    'gray' : '#6b7280',
+    'red' : '#D22B2B'
    }
