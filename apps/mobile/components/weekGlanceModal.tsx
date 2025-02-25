@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Modal, View, Text, Pressable, TouchableWithoutFeedback, ScrollView, Image, StyleSheet } from 'react-native';
+import { Modal, View, Text, Pressable, TouchableWithoutFeedback, ScrollView, Image, StyleSheet, useColorScheme } from 'react-native';
 import Entypo from '@expo/vector-icons/Entypo';
 import { ThemeColors } from '@/constants/Colors';
 import WeekDayListComponent from './weekDayListComponent';
@@ -11,6 +11,7 @@ type propValue =
     }
 
 export default function WeekGlanceModal(props: propValue) {
+    let colorScheme = useColorScheme();
     const [currentNewsData, setCurrentNewsData] = useState<any>([])
 
     useEffect(() => {
@@ -23,11 +24,11 @@ export default function WeekGlanceModal(props: propValue) {
     return (
         <Modal transparent visible={props.isVisible}>
             <Pressable onPress={() => { props.close() }} style={styles.container}>
-                <View style={styles.modalTransparentSpace}></View>
+                <View style={{...styles.modalTransparentSpace, backgroundColor: ThemeColors(colorScheme)['gray']}}></View>
                 <TouchableWithoutFeedback>
                     {/* Modal Header */}
-                    <View style={styles.modalContainer}>
-                        <View style={styles.modalHeaderContainer}>
+                    <View style={{...styles.modalContainer, backgroundColor: ThemeColors(colorScheme)['atu-green-vl']}}>
+                        <View style={{...styles.modalHeaderContainer, backgroundColor: ThemeColors(colorScheme)['atu-green-headerl']}}>
                             <Text style={styles.modalHeaderText}>Week at a Glance</Text>
                         </View>
 
@@ -58,13 +59,11 @@ const styles = StyleSheet.create({
     },
     modalTransparentSpace:
     {
-        backgroundColor: ThemeColors['gray'],
         opacity: .60,
         height: '100%'
     },
     modalContainer:
     {
-        backgroundColor: ThemeColors['atu-green-vl'],
         height: '75%',
     },
 
@@ -73,7 +72,6 @@ const styles = StyleSheet.create({
         boxShadow: '0 7px 5px rgba(0, 0, 0, 0.2)',
         justifyContent: 'center',
         marginBottom: 12,
-        backgroundColor: ThemeColors['atu-green-headerl']
     },
     modalHeaderText:
     {

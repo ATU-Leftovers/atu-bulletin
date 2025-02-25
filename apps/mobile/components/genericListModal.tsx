@@ -1,6 +1,6 @@
 import { ThemeColors } from '@/constants/Colors';
 import { useEffect, useState } from 'react';
-import { Modal, View, Text, Pressable, TouchableWithoutFeedback, StyleSheet, ScrollView, Image } from 'react-native';
+import { Modal, View, Text, Pressable, TouchableWithoutFeedback, StyleSheet, ScrollView, Image, useColorScheme } from 'react-native';
 
 type propValue =
     {
@@ -10,6 +10,7 @@ type propValue =
     }
 
 export default function GenericListModal(props: propValue) {
+    let colorScheme = useColorScheme();
     const [currentNewsData, setCurrentNewsData] = useState<any>([])
 
 
@@ -22,25 +23,25 @@ export default function GenericListModal(props: propValue) {
     return (
         <Modal transparent visible={props.isVisible}>
             <Pressable onPress={() => { props.close() }} style={styles.container}>
-                <View style={styles.modalTransparentSpace}></View>
+                <View style={{...styles.modalTransparentSpace, backgroundColor:ThemeColors(colorScheme)['gray']}}></View>
                 <TouchableWithoutFeedback>
-                    <View style={styles.modalContainer}>
-                        <View style={styles.modalHeaderContainer}>
+                    <View style={{...styles.modalContainer, backgroundColor: ThemeColors(colorScheme)['atu-green-vl']}}>
+                        <View style={{...styles.modalHeaderContainer, backgroundColor: ThemeColors(colorScheme)['atu-green-headerl']}}>
                             <Text style={styles.modalHeaderText}>{props.title}</Text>
                         </View>
                         <ScrollView showsVerticalScrollIndicator={false}>
                             {currentNewsData.map((item: any, index: any) => {
                                 return (
-                                    <Pressable key={index} style={styles.weekdayDropDownItemContainer}>
+                                    <Pressable key={index} style={{...styles.weekdayDropDownItemContainer, backgroundColor: ThemeColors(colorScheme)['theme']}}>
                                         <View><Image style={styles.weekdayDropDownItemImage} source={require('../assets/images/Pickle.png')} /></View>
                                         <View style={styles.weekdayDropDownItemInfoContainer}>
                                             <View>
-                                                <Text numberOfLines={1} ellipsizeMode='tail' style={styles.weekdayDropDownItemTitle}>Titlewadsadadasdhfuhuhifuijhfdsjhidhjfdjhsdfjhsdhjfdjdks</Text>
-                                                <Text numberOfLines={7} ellipsizeMode='tail' style={styles.weekdayDropDownItemText}>{"\u00A0\u00A0\u00A0\u00A0"} Summary super cool somethign to add to test wrap Titlewadsadadasdhfuhuhifuijhfdsjhidhjfdjhsdfjhsdhjfdjdks Titlewadsadadasdhfuhuhifuijhfdsjhidhjfdjhsdfjhsdhjfdjdks Titlewadsadadasdhfuhuhifuijhfdsjhidhjfdjhsdfjhsdhjfdjdks</Text>
+                                                <Text numberOfLines={1} ellipsizeMode='tail' style={{...styles.weekdayDropDownItemTitle, color: ThemeColors(colorScheme)['DWhiteLBlack']}}>Titlewadsadadasdhfuhuhifuijhfdsjhidhjfdjhsdfjhsdhjfdjdks</Text>
+                                                <Text numberOfLines={7} ellipsizeMode='tail' style={{...styles.weekdayDropDownItemText, color: ThemeColors(colorScheme)['DWhiteLBlack']}}>{"\u00A0\u00A0\u00A0\u00A0"} Summary super cool somethign to add to test wrap Titlewadsadadasdhfuhuhifuijhfdsjhidhjfdjhsdfjhsdhjfdjdks Titlewadsadadasdhfuhuhifuijhfdsjhidhjfdjhsdfjhsdhjfdjdks Titlewadsadadasdhfuhuhifuijhfdsjhidhjfdjhsdfjhsdhjfdjdks</Text>
                                             </View>
                                             <Pressable style={styles.weekdayDropDownItemButtonContainer}>
-                                                <View style={styles.weekdayDropDownItemButton}>
-                                                    <Text style={styles.weekdayDropDownItemButtonText}>Learn More</Text>
+                                                <View style={{...styles.weekdayDropDownItemButton, backgroundColor: ThemeColors(colorScheme)['atu-gold-vd']}}>
+                                                    <Text style={{...styles.weekdayDropDownItemButtonText, color: ThemeColors(colorScheme)['DBlackLWhite']}}>Learn More</Text>
                                                 </View>
                                             </Pressable>
                                         </View>
@@ -65,13 +66,11 @@ const styles = StyleSheet.create({
     },
     modalTransparentSpace:
     {
-        backgroundColor: ThemeColors['gray'],
         opacity: .60,
         height: '100%'
     },
     modalContainer:
     {
-        backgroundColor: ThemeColors['atu-green-vl'],
         height: '75%',
     },
 
@@ -80,7 +79,6 @@ const styles = StyleSheet.create({
         boxShadow: '0 7px 5px rgba(0, 0, 0, 0.2)',
         justifyContent: 'center',
         marginBottom: 12,
-        backgroundColor: ThemeColors['atu-green-headerl']
     },
     modalHeaderText:
     {
@@ -96,7 +94,6 @@ const styles = StyleSheet.create({
         height: 192,
         margin: 16,
         borderRadius: 8,
-        backgroundColor: 'white'
     },
     weekdayDropDownItemImage:
     {
@@ -109,7 +106,7 @@ const styles = StyleSheet.create({
     {
         justifyContent: 'space-between',
         paddingTop: 4,
-        paddingLeft: 8
+        paddingLeft: 30
     },
     weekdayDropDownItemTitle:
     {
@@ -138,7 +135,6 @@ const styles = StyleSheet.create({
         bottom: 0,
         paddingHorizontal: 20,
         borderRadius: 999,
-        backgroundColor: ThemeColors['atu-gold-vd']
     },
     weekdayDropDownItemButtonText:
     {
