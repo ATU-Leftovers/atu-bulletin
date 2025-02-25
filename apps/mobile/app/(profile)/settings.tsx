@@ -1,28 +1,70 @@
 import { SafeAreaView } from "react-native-safe-area-context"
 import { Switch, Text, View, Pressable, StyleSheet } from "react-native";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import React from "react";
 import { ThemeColors } from "@/constants/Colors";
+import { Appearance, useColorScheme } from 'react-native';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 
 export default function Settings() {
-    const [isEnabled, setIsEnabled] = useState(false);
-    const [isDefault, setIsDefault] = useState(false)
-    const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+    let colorScheme = useColorScheme();
+    const [isDefault, setIsDefault] = useState(false);
+    const [theme, setTheme] = useState<boolean>(themeFinder())
+    const toggleSwitch = () => {updateTheme()}
+
+    function  themeFinder()
+    {
+        if(colorScheme == 'dark')
+            {
+                return true
+            }
+            else{
+                return false
+            }
+    }
+    async function updateTheme()
+    {
+        setTheme(previousState => !previousState);
+        
+        if(Appearance.getColorScheme() == 'dark')
+        {
+            try{
+                 await AsyncStorage.setItem('theme', 'light');
+            }
+            catch{
+                console.log('Failed to set theme storage')
+            }
+           
+            Appearance.setColorScheme('light')
+   
+        }
+        else{
+            try{
+                await AsyncStorage.setItem('theme', 'dark');
+           }
+           catch{
+               console.log('Failed to set theme storage')
+           }
+            Appearance.setColorScheme('dark')
+            
+        }
+    }
 
 
     return (
-        <SafeAreaView style={styles.container}>
-            <Text style={styles.headerText}>Preferences</Text>
-            <View style={styles.infoContainer}>
+        <SafeAreaView style={{...styles.container, backgroundColor: ThemeColors(colorScheme)['theme']}}>
+            <Text style={{...styles.headerText, color: ThemeColors(colorScheme)['DWhiteLBlack']}}>Preferences</Text>
+            <View style={{...styles.infoContainer, borderColor: ThemeColors(colorScheme)['gray-placeholder']}}>
                 <View style={styles.infoRowContainer}>
-                    <Text style={styles.infoText}>Theme</Text>
+                    <Text style={{...styles.infoText, color: ThemeColors(colorScheme)['DWhiteLBlack']}}>Theme</Text>
                     <Switch
                         trackColor={{ false: '#ddbf5f', true: '#4b7f52' }}
-                        thumbColor={isEnabled ? '#78797b' : '#78797b'}
+                        thumbColor={theme ? '#78797b' : '#78797b'}
                         ios_backgroundColor="#3e3e3e"
                         onValueChange={toggleSwitch}
-                        value={isEnabled}
+                        value={theme}
                     />
                 </View>
             </View>
@@ -46,21 +88,21 @@ export default function Settings() {
             </View> */}
             {!isDefault && (
                 <>
-                    <Text style={styles.headerText}>Profile</Text>
-                    <View style={styles.infoContainer}>
+                    <Text style={{...styles.headerText, color: ThemeColors(colorScheme)['DWhiteLBlack']}}>Profile</Text>
+                    <View style={{...styles.infoContainer, borderColor: ThemeColors(colorScheme)['gray-placeholder']}}>
                         <View  style={styles.infoRowContainer}>
-                            <Text style={styles.infoText}>Name: Username</Text>
+                            <Text style={{...styles.infoText, color: ThemeColors(colorScheme)['DWhiteLBlack']}}>Name: Username</Text>
                             <Pressable>
-                                <View style={styles.changeButtonStyle}>
-                                    <Text style={styles.changeButtonText}>Change</Text>
+                                <View style={{...styles.changeButtonStyle, backgroundColor: ThemeColors(colorScheme)['atu-gold-vd']}}>
+                                    <Text style={{...styles.changeButtonText, color: ThemeColors(colorScheme)['DBlackLWhite']}}>Change</Text>
                                 </View>
                             </Pressable>
                         </View>
                         <View  style={styles.infoRowContainer}>
-                            <Text style={styles.infoText}>Banner Image</Text>
+                            <Text style={{...styles.infoText, color: ThemeColors(colorScheme)['DWhiteLBlack']}}>Banner Image</Text>
                             <Pressable>
-                                <View style={styles.changeButtonStyle}>
-                                    <Text style={styles.changeButtonText}>Change</Text>
+                                <View style={{...styles.changeButtonStyle, backgroundColor: ThemeColors(colorScheme)['atu-gold-vd']}}>
+                                    <Text style={{...styles.changeButtonText, color: ThemeColors(colorScheme)['DBlackLWhite']}}>Change</Text>
                                 </View>
                             </Pressable>
                         </View>
@@ -75,8 +117,8 @@ export default function Settings() {
 const styles = StyleSheet.create({
     container:
     {
-        justifyContent: 'center',
-        padding: 34
+        padding: 34,
+        height: '100%'
     },
     headerText:
     {
@@ -90,7 +132,6 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         paddingBottom: 20,
         borderBottomWidth: 4,
-        borderColor: ThemeColors['gray-placeholder'],
         gap: 15,
     },
     infoText:
@@ -108,7 +149,6 @@ const styles = StyleSheet.create({
         paddingVertical: 4,
         paddingHorizontal: 8,
         borderRadius: 999,
-        backgroundColor: ThemeColors['atu-gold-vd']
     },
     changeButtonText:
     {

@@ -4,10 +4,13 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { supabase } from "@/lib/supabase";
 import { Link, router } from "expo-router";
+import { Appearance, useColorScheme } from 'react-native';
+
 
 import { ThemeColors } from '@/constants/Colors';
 
 export default function ProfileScreen() {
+    let colorScheme = useColorScheme();
     const [user, setUser] = useState<User | null>(null)
     const [profile, setProfile] = useState<Tables<'profiles'> | null>(null)
 
@@ -23,6 +26,9 @@ export default function ProfileScreen() {
         })()
     }, [])
 
+
+
+
     async function signOut() {
         const { error } = await supabase.auth.signOut();
 
@@ -32,34 +38,34 @@ export default function ProfileScreen() {
     }
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={{...styles.container, backgroundColor: ThemeColors(colorScheme)['theme']}}>
 
             <View style={styles.body}>
-                <Link href="/yourEvents" asChild style={styles.linkContainer}>
+                <Link href="/yourEvents" asChild style={{...styles.linkContainer, borderBottomColor: ThemeColors(colorScheme)['gray']}}>
                     <Pressable>
-                        <Text style={styles.linkText}>Your Events</Text>
+                        <Text style={{...styles.linkText, color: ThemeColors(colorScheme)['DWhiteLBlack']}}>Your Events</Text>
                     </Pressable>
                 </Link>
                 
-                <Link href="/yourNews" asChild style={styles.linkContainer}>
+                <Link href="/yourNews" asChild style={{...styles.linkContainer, borderBottomColor: ThemeColors(colorScheme)['gray']}}>
                     <Pressable>
-                        <Text style={styles.linkText}>Your News</Text>
+                        <Text style={{...styles.linkText, color: ThemeColors(colorScheme)['DWhiteLBlack']}}>Your News</Text>
                     </Pressable>
                 </Link>
-                <Link href="/pins" asChild style={styles.linkContainer}>
+                <Link href="/pins" asChild style={{...styles.linkContainer, borderBottomColor: ThemeColors(colorScheme)['gray']}}>
                     <Pressable>
-                        <Text style={styles.linkText}>Pins</Text>
+                        <Text style={{...styles.linkText, color: ThemeColors(colorScheme)['DWhiteLBlack']}}>Pins</Text>
                     </Pressable>
                 </Link>
-                <Link href="/settings" asChild style={styles.linkContainer}>
+                <Link href="/settings" asChild style={{...styles.linkContainer, borderBottomColor: ThemeColors(colorScheme)['gray']}}>
                     <Pressable>
-                        <Text style={styles.linkText}>Settings</Text>
+                        <Text style={{...styles.linkText, color: ThemeColors(colorScheme)['DWhiteLBlack']}}>Settings</Text>
                     </Pressable>
                 </Link>
             </View>
             <Pressable style={styles.signOutButtonPosition} onPress={() => {signOut()}} >
-                <View style={styles.signOutButtonContainer}>
-                    <Text style={styles.signOutButtonText}>Sign Out</Text>
+                <View style={{...styles.signOutButtonContainer, backgroundColor: ThemeColors(colorScheme)['atu-gold-vd']}}>
+                    <Text style={{...styles.signOutButtonText, color: ThemeColors(colorScheme)['DBlackLWhite']}}>Sign Out</Text>
                 </View>
             </Pressable>
 
@@ -78,6 +84,7 @@ const styles = StyleSheet.create({
     body: {
         padding: 16,
         gap: 20,
+        marginTop: 40
     },
 
     linkContainer:
@@ -85,7 +92,6 @@ const styles = StyleSheet.create({
         borderBottomWidth:4,
         paddingHorizontal: 24,
         paddingBottom: 16,
-        borderBottomColor: ThemeColors['gray'] 
     },
     linkText:
     {
@@ -102,7 +108,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 32,
         paddingVertical: 8,
         borderRadius: 99,
-        backgroundColor: ThemeColors['atu-gold-vd']
     },
     signOutButtonText:
     {
